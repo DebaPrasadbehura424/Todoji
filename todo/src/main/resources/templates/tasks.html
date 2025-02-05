@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <title>Index Page</title>
+  </head>
+  <body>
+    <h1>Welcome to the Task Manager</h1>
+    <div>
+      <th:block th:each="task : ${tasks}">
+        <div>
+          <span th:text="${task.title}"></span>
+        </div>
+      </th:block>
+    </div>
+  </body>
+</html>
