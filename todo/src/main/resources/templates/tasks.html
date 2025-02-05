@@ -1,16 +1,110 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
   <head>
-    <title>Index Page</title>
+    <title>Todo Application</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #f0f0f0;
+        margin: 0;
+        padding: 0;
+      }
+
+      .container {
+        max-width: 600px;
+        margin: 50px auto;
+        padding: 20px;
+        background-color: #fff;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      }
+
+      h1 {
+        text-align: center;
+        color: #333;
+      }
+
+      form {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 20px;
+      }
+
+      input[type="text"] {
+        flex: 1;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+      }
+
+      button {
+        padding: 10px 20px;
+        background-color: #4caf50;
+        color: #fff;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+      }
+
+      button:hover {
+        background-color: #45a049;
+      }
+
+      .task-list {
+        list-style-type: none;
+        padding: 0;
+      }
+
+      .task-item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 10px;
+        border-bottom: 1px solid #ccc;
+      }
+
+      .text-strikethrough {
+        text-decoration: line-through;
+        color: red;
+      }
+
+      @media (max-width: 600px) {
+        .container {
+          margin: 20px;
+        }
+
+        form {
+          flex-direction: column;
+        }
+
+        input[type="text"] {
+          margin-bottom: 10px;
+        }
+      }
+    </style>
   </head>
   <body>
-    <h1>Welcome to the Task Manager</h1>
-    <div>
-      <th:block th:each="task : ${tasks}">
-        <div>
-          <span th:text="${task.title}"></span>
-        </div>
-      </th:block>
+    <div class="container">
+      <h1>Welcome to the Todo Application</h1>
+      <form action="/" method="post">
+        <input type="text" name="title" placeholder="Add task" required />
+        <button type="submit">ADD</button>
+      </form>
+      <ul class="task-list">
+        <th:block th:each="task : ${tasks}">
+          <li class="task-item">
+            <span
+              th:classappend="${task.completed} ? 'text-strikethrough' : ''"
+              th:text="${task.title}"
+            ></span>
+            <div>
+              <a th:href="@{/{id}/del(id=${task.id})}">Delete</a>
+              <a th:href="@{/{id}/toggle(id=${task.id})}">Completed</a>
+            </div>
+          </li>
+        </th:block>
+      </ul>
     </div>
   </body>
 </html>
